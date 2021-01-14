@@ -1,0 +1,102 @@
+# randomNumber
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="ml-5 bg-dark text-light">
+    <fieldset>
+        <legend class="text-center text-danger">ĐOÁN SỐ BÍ MẬT</legend>
+        <label for="guess">Dự đoán của bạn:</label>
+        <input type="number" id="guess" placeholder="Nhập vào 1 số!" value="" />
+        <input type="button" id="ok" onclick="yourGuess()" value="Okay!"
+            class=" btn-group-sm btn-success btn-outline-light" /><br />
+        <input type="button" onclick="generateNumberToGuess(true)" value="Chơi lại!"
+            class=" btn-group-sm btn-warning" /><br />
+        <input id="cheat" type="checkbox" value="cheat" onclick="showNumberToGuess()" />
+        <label for="cheat">Xem số bí mật</label>
+        <div id="cheatShow" style="display: none;">
+            <input id="numberToGuess" type="text" />
+        </div>
+        <p>Số lần bạn đã chơi : <a id="clicks"> 0</a></p>
+    </fieldset>
+    <fieldset>
+        <textarea class="bg-dark text-light" id="output" name="output" rows="5" style="width: 100%;"></textarea>
+    </fieldset>
+
+    <script>
+        var clicks = 0;
+        function yourGuess() {
+            clicks += 1;
+            document.getElementById("clicks").innerHTML = clicks;
+            var guess = document.getElementById("guess").value;
+            var guesses = document.getElementById("output");
+            if (guess == numToGuess) {
+                guesses.value = guesses.value + "\r" + "Bạn đã đoán đúng, kết quả là: " + guess + "";
+                document.getElementById('ok').style.display = 'none';
+            } else if (guess > numToGuess) {
+                guesses.value = guesses.value + "\r" + "Số bạn vừa nhập là " + guess + " và nó cao hơn kết quả! ";
+            } else {
+                guesses.value = guesses.value + "\r" + "Số bạn vừa nhập là " + guess + " và nó thấp hơn kết quả! ";
+            }
+        }
+        function showNumberToGuess() {
+
+            if (document.getElementById('cheat').checked) {
+                document.getElementById('numberToGuess').value = numToGuess;
+                document.getElementById('cheatShow').style.display = 'inline';
+            } else {
+                document.getElementById('numberToGuess').value = '';
+                document.getElementById('cheatShow').style.display = 'none';
+            }
+        }
+
+
+        function generateNumberToGuess(confirmIt) {
+
+            var guesses = document.getElementById("output");
+
+
+            if (confirmIt && confirm('Bạn có muốn chơi lại hay không?')) {
+                window.location.reload();
+
+            }
+
+            
+            guesses.value = '';
+            numToGuess = Math.floor(Math.random() * 100);
+            document.getElementById('clicks').display = none;
+            document.getElementById('numberToGuess').value = '';
+            document.getElementById('cheatShow').style.display = 'none';
+        }
+
+
+        window.onload = function () {
+            generateNumberToGuess();
+        }
+
+
+    </script>
+
+    <!--  -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
